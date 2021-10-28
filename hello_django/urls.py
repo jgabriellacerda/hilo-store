@@ -28,3 +28,5 @@ urlpatterns = [
     # path('elements', views.elements, name='elements'),
 
 ]
+
+# handler404 = 'core.views.error_404'
