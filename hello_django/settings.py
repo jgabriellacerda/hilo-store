@@ -92,6 +92,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'hello_django.urls'
 
+print( "base dir path", BASE_DIR)
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -166,12 +168,6 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# STATICFILES_STORAGE = 'hello_django.storage.WhiteNoiseStaticFilesStorage'
-# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-# WHITENOISE_USE_FINDERS = True
-# WHITENOISE_MANIFEST_STRICT = False
-# WHITENOISE_ALLOW_ALL_ORIGINS = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
