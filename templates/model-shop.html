@@ -29,7 +29,8 @@
 				<div class="product-item">
 					<div class="product-thumb">
                         <span class="bage">Sale</span>
-						<img class="img-responsive" src="{% static 'images/shop/products/'%}{{ product.image }}" alt="product-img" />
+						<!-- <img class="img-responsive" src="{% static 'images/shop/products/'%}{{ product.image }}" alt="product-img" /> -->
+                        <img class="img-responsive" src="{{ product.img_file.url }}" alt="product-img" />
 						<div class="preview-meta">
 							<ul>
 								<li>

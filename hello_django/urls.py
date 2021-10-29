@@ -15,19 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.urls.conf import re_path
 from core import views
+from django.conf import settings
+from django.conf.urls.static import static
+from django.views.static import serve
 
-urlpatterns = [
+urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
-    path('hello/<nome>/', views.hello),
-    # path('', views.home, name='home'),
-    # path('home', views.home, name='home'),
-    # path('shop', views.shop, name='shop'),
-    # path('pages', views.pages, name='pages'),
-    # path('blog', views.blog, name='blog'),
-    # path('elements', views.elements, name='elements'),
-
+    path('hello/<nome>/', views.hello),   
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root':settings.MEDIA_ROOT})
 ]
 
 # handler404 = 'core.views.error_404'
