@@ -14,6 +14,7 @@ import dj_database_url
 from decouple import config
 from pathlib import Path
 import os
+import json
 
 import logging
 LOGGING = {
@@ -77,6 +78,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -168,6 +170,24 @@ USE_L10N = True
 
 USE_TZ = True
 
+# S3 BUCKET CONFIG
+
+try:
+    with open('aws.json') as f:
+        data = json.load(f)
+        AWS_ACCESS_KEY_ID = data['AWS_ACCESS_KEY_ID']
+        AWS_SECRET_ACCESS_KEY = data['AWS_SECRET_ACCESS_KEY']
+        AWS_STORAGE_BUCKET_NAME = data['AWS_STORAGE_BUCKET_NAME']
+except:
+    pass
+
+# AWS_ACCESS_KEY_ID = 'AKIA5YSK6QTHOHZIGIXL'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'hilo-store-bucket'
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -175,14 +195,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
