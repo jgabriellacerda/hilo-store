@@ -170,16 +170,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-# S3 BUCKET CONFIG
 
-try:
-    with open('aws.json') as f:
-        data = json.load(f)
-        AWS_ACCESS_KEY_ID = data['AWS_ACCESS_KEY_ID']
-        AWS_SECRET_ACCESS_KEY = data['AWS_SECRET_ACCESS_KEY']
-        AWS_STORAGE_BUCKET_NAME = data['AWS_STORAGE_BUCKET_NAME']
-except:
-    pass
 
 # AWS_ACCESS_KEY_ID = 'AKIA5YSK6QTHOHZIGIXL'
 # AWS_SECRET_ACCESS_KEY = 'hVumY+n/+clbNWbccq2TejGWZNqBeOQFbvjHBiGU'
@@ -213,3 +204,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 MEDIA_URL = '/media/'
 
 django_heroku.settings(locals())
+
+# S3 BUCKET CONFIG
+
+try:
+    with open('aws.json') as f:
+        data = json.load(f)
+        AWS_ACCESS_KEY_ID = data['AWS_ACCESS_KEY_ID']
+        AWS_SECRET_ACCESS_KEY = data['AWS_SECRET_ACCESS_KEY']
+        AWS_STORAGE_BUCKET_NAME = data['AWS_STORAGE_BUCKET_NAME']
+except:
+    pass
