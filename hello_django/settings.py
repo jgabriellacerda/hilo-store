@@ -15,6 +15,7 @@ from decouple import config
 from pathlib import Path
 import os
 import json
+from decouple import config
 
 import logging
 LOGGING = {
@@ -60,7 +61,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ajfe%t8lnv4&e8mu6y!y(efj2hswqz#9fjebu1pt99w9%x(3ar'
+# SECRET_KEY = 'django-insecure-ajfe%t8lnv4&e8mu6y!y(efj2hswqz#9fjebu1pt99w9%x(3ar'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -172,8 +174,12 @@ USE_TZ = True
 
 
 
-# AWS_ACCESS_KEY_ID = 'AKIA5YSK6QTHOHZIGIXL'
-# AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+
+# AWS_ACCESS_KEY_ID = 'AKIA5YSK6QTHBKL6BRMH'
+# AWS_SECRET_ACCESS_KEY = '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'
 # AWS_STORAGE_BUCKET_NAME = 'hilo-store-bucket'
 
 AWS_S3_FILE_OVERWRITE = False
@@ -204,14 +210,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 MEDIA_URL = '/media/'
 
 django_heroku.settings(locals())
-
-# S3 BUCKET CONFIG
-
-try:
-    with open('aws.json') as f:
-        data = json.load(f)
-        AWS_ACCESS_KEY_ID = data['AWS_ACCESS_KEY_ID']
-        AWS_SECRET_ACCESS_KEY = data['AWS_SECRET_ACCESS_KEY']
-        AWS_STORAGE_BUCKET_NAME = data['AWS_STORAGE_BUCKET_NAME']
-except:
-    pass
