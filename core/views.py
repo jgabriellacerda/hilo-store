@@ -1,5 +1,8 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from core.models import Product
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 # Create your views here.
 
@@ -7,13 +10,16 @@ def hello(request, nome):
     return HttpResponse(f'Hello {nome}')
 
 def home(request):
-    return render(request, 'model-home.html', {})
+    products = Product.objects.all()[:6]
+    response = {'products':products}
+    return render(request, 'model-home.html', response)
 
 def shop(request):
     products = Product.objects.all()
     response = {'products':products}
     return render(request, 'model-shop.html', response)
 
+@login_required(login_url='/login')
 def cart(request):
     return render(request, 'cart.html', {})
 
@@ -53,8 +59,27 @@ def address(request):
 def profile_details(request):
     return render(request, 'profile-details.html', {})
 
-def login(request):
+def login_user(request):
     return render(request, 'login.html', {})
+
+def submit_login(request):
+    if request.POST:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            messages.error(request, "Usuário e/ou senha inválido(s).")
+            
+            return redirect('/login')
+    else:      
+        return redirect('/')
+    
+def logout_user(request):
+    logout(request)
+    return redirect('/')
 
 def signin(request):
     return render(request, 'signin.html', {})

@@ -21,7 +21,9 @@ urlpatterns = [
     path('order/', views.order, name='order'),
     path('address/', views.address, name='address'),
     path('profile-details/', views.profile_details, name='profile-details'),
-    path('login/', views.login, name='login'),
+    path('login/', views.login_user, name='login'),
+    path('login/submit', views.submit_login),
+    path('logout/', views.logout_user, name='logout_user'),
     path('signin/', views.signin, name='signin'),
     path('forget-password/', views.forget_password, name='forget-password'),
 
