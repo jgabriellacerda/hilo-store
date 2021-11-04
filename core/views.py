@@ -29,8 +29,10 @@ def checkout(request):
 def confirmation(request):
     return render(request, 'confirmation.html', {})
 
-def product_single(request):
-    return render(request, 'product-single.html', {})
+def product_single(request, product_id):
+    product = Product.objects.filter(id=product_id)
+    response = {'product': product[0]}
+    return render(request, 'product-single.html', response)
 
 def shop_sidebar(request):
     return render(request, 'shop-sidebar.html', {})
